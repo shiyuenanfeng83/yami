@@ -1,0 +1,149 @@
+/* ===== 编辑模式样式 ===== */
+body.editing [data-editable="true"] {
+  outline: 1px dashed rgba(255, 95, 162, 0.65);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+body.editing [data-editable="true"]:hover {
+  outline-color: var(--pink);
+  background: rgba(255, 95, 162, 0.06);
+}
+body.editing [data-editable="true"]:focus {
+  outline: 2px solid var(--pink);
+  background: rgba(255, 95, 162, 0.1);
+}
+
+/* 可替换图片 */
+.img-wrap { position: relative; }
+body.editing .img-wrap::after {
+  content: "点击更换图片";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 10, 20, 0.55);
+  color: #fff;
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: 0.25s;
+  cursor: pointer;
+  border-radius: 10px;
+}
+body.editing .img-wrap:hover::after { opacity: 1; }
+
+.img-del {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 60, 90, 0.9);
+  color: #fff;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: none;
+}
+body.editing .img-del { display: block; }
+
+/* 编辑工具条 */
+.admin-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(140%);
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(20, 14, 32, 0.94);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s ease;
+  flex-wrap: wrap;
+  max-width: 96vw;
+}
+.admin-bar.show { transform: translateX(-50%) translateY(0); }
+.admin-bar button {
+  border: 1px solid var(--border);
+  background: rgba(168, 107, 255, 0.12);
+  color: var(--text);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: 0.25s;
+  white-space: nowrap;
+}
+.admin-bar button:hover {
+  background: var(--purple);
+  border-color: var(--purple);
+}
+.admin-bar button.danger {
+  background: rgba(255, 60, 90, 0.14);
+  border-color: rgba(255, 60, 90, 0.5);
+}
+.admin-bar button.danger:hover { background: #ff3c5a; }
+.admin-status {
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding: 0 6px;
+}
+
+/* 登录弹窗 */
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.admin-modal.open { display: flex; }
+.admin-box {
+  width: min(360px, 90vw);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 26px;
+  text-align: center;
+  animation: fadeUp 0.3s both;
+}
+.admin-box h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.admin-box p { color: var(--muted); font-size: 0.84rem; margin-bottom: 18px; }
+.admin-box input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-size: 0.92rem;
+  outline: none;
+}
+.admin-box input:focus { border-color: var(--purple); }
+.admin-box .btns { display: flex; gap: 10px; margin-top: 18px; }
+.admin-box .btns button {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+.admin-box .ok { background: linear-gradient(90deg, var(--purple), var(--pink)); color: #fff; }
+.admin-box .cancel { background: rgba(255, 255, 255, 0.08); color: var(--muted); }
+.admin-err { color: #ff7a92; font-size: 0.8rem; margin-top: 10px; min-height: 18px; }
+
+@media (max-width: 680px) {
+  .admin-bar { border-radius: 16px; bottom: 12px; }
+  .admin-bar button { padding: 6px 10px; font-size: 0.75rem; }
+}
